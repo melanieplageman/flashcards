@@ -31,12 +31,12 @@ end
 flashcard = Flashcard.new(ARGV)
 #puts flashcard.to_json
 
-# response = HTTP.post("http://localhost:8080/flashcard", :body => flashcard.to_json)
+response = HTTP.post("http://localhost:8080/flashcard", :body => flashcard.to_json)
 # puts response.body
-id = 3
+id = 2
 # response = HTTP.get("http://localhost:8080/flashcard/#{id}")
 
 # response = HTTP.put("http://localhost:8080/flashcard/#{id}", :body => flashcard.to_json)
 
-response = HTTP.delete("http://localhost:8080/flashcard/#{id}") 
+# response = HTTP.delete("http://localhost:8080/flashcard/#{id}") 
 puts response
