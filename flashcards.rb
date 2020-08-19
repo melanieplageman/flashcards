@@ -3,13 +3,13 @@ require 'json'
 # require 'optparse'
 
 class Flashcard
-  def initialize(sides)
-    @sides = sides
+  def initialize(side)
+    @side = side
   end
 
   def to_json
     flashcard_attributes = {
-      :sides => @sides, 
+      :side => @side, 
     }
     JSON.generate(flashcard_attributes)
   end
