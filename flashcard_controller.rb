@@ -21,6 +21,13 @@ class Side < Sequel::Model(DB[:side])
     e.pk = pk
     raise e
   end
+
+  # @return [Side] the next side in the same flashcard
+  def next
+    next_side = Side.where do |o|
+      o.id > id 
+    end.where(flashcard_id: flashcard_id).first
+  end
 end
 
 class FlashcardApp < Sinatra::Base
@@ -33,9 +40,9 @@ class FlashcardApp < Sinatra::Base
   #C - create
   post '/flashcard' do
    flashcard_id = Flashcard.insert()
-   headers \
-     "Location" => "0.0.0.0:80/flashcard/#{flashcard_id}"
-   body 'something'
+   response = { 'id' => flashcard_id }
+   headers "Location" => "/flashcard/#{flashcard_id}"
+   body response.to_json
   end
 
   # R - retrieve
