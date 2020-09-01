@@ -1,34 +1,7 @@
 require 'sinatra'
-require 'sequel'
 
+require 'database'
 require 'side_controller'
-
-DB = Sequel.postgres('flashcards')
-DB.extension :pg_array
-
-class Flashcard < Sequel::Model(DB[:flashcard])
-end
-
-module WithPK
-  attr_accessor :pk
-end
-
-class Side < Sequel::Model(DB[:side])
-  def self.with_pk!(pk)
-    super
-  rescue Sequel::NoMatchingRow => e
-    e.extend(WithPK)
-    e.pk = pk
-    raise e
-  end
-
-  # @return [Side] the next side in the same flashcard
-  def next
-    next_side = Side.where do |o|
-      o.id > id 
-    end.where(flashcard_id: flashcard_id).first
-  end
-end
 
 class FlashcardApp < Sinatra::Base
   set :logging, true

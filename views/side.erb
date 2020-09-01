@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+  <% if @side.format == 'ruby' %>
+    <pre><%= @side.text %></pre>
+  <% else %>
+    <p><%= @side.text %></p>
+  <% end %>
+
+  <% unless @next_side.nil? %>
+    <a href="/side/<%= @next_side.id %>">
+      Next
+    </a>
+  <% end %>
+
+</body>
+
+</html>
