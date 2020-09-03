@@ -22,6 +22,7 @@ class SideApp < Sinatra::Base
     @side = Side.with_pk!(id)
     @next_side = @side.next
     erb :side
+    headers
   end
 
   # C - Create
